@@ -16,47 +16,7 @@
         </div>
     </div>
 <pre class="text-white bg-dark p-3">{{ appointmentDataList() | json }}</pre>
-    <!-- <div class="row g-4">
-        <div class="col-xl-4 col-lg-4 col-md-6">
-            <div class="card h-100 shadow-sm border-0">
-                <div class="card-body p-4">
-                    <div class="d-flex justify-content-between mb-3">
-                        <span class="badge bg-light text-primary border">ID: 101</span>
-                        <div class="dropdown">
-                            <button class="btn btn-link text-muted p-0" data-bs-toggle="dropdown"><i
-                                    class="fas fa-ellipsis-v"></i></button>
-                            <ul class="dropdown-menu dropdown-menu-end shadow border-0">
-                                <li><a class="dropdown-item text-primary" href="#"><i
-                                            class="fas fa-edit me-2"></i>Edit</a></li>
-                                <li><a class="dropdown-item text-danger" href="#"><i
-                                            class="fas fa-trash me-2"></i>Delete</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <h5 class="card-title fw-bold mb-1 text-dark">Max Healthcare</h5>
-                    <p class="text-muted small mb-3"><i class="fas fa-envelope me-2"></i>maxhospital.com</p>
-
-                    <hr class="text-muted opacity-25">
-
-                    <div class="mb-2">
-                        <small class="text-muted d-block small-caps">LOCATION</small>
-                        <span class="fw-semibold"><i class="fas fa-map-marker-alt text-danger me-2"></i>Delhi</span>
-                    </div>
-                    <div class="mb-0">
-                        <small class="text-muted d-block small-caps">CONTACT</small>
-                        <span class="fw-semibold"><i class="fas fa-phone-alt text-success me-2"></i>9876543210</span>
-                    </div>
-                </div>
-                <div class="card-footer bg-white border-0 p-3 d-flex gap-2">
-                    <button class="btn btn-outline-primary btn-sm w-100"><i class="fas fa-edit me-1"></i> Edit</button>
-                    <button class="btn btn-outline-danger btn-sm w-100"><i class="fas fa-trash me-1"></i>
-                        Delete</button>
-                </div>
-            </div>
-        </div>
-
-    </div> -->
+   
     <div class="row g-4">
 @for (item of appointmentDataList(); track $index) {
     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
