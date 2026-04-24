@@ -1,1 +1,78 @@
-<p>new-hospital works!</p>
+<h3 class="mb-4 text-primary text-center">Patient Registration</h3>
+<form [formGroup]="hospitalForm">
+    <div class="row mb-3">
+        <div class="col">
+            <label class="form-label">Hospital Name</label>
+            <input type="text" class="form-control" placeholder="John" required formControlName="hospitalName">
+        </div>
+        <div class="col">
+            <label class="form-label">Hospital Address</label>
+            <input type="text" class="form-control" placeholder="Hospital Address" formControlName="hospitalAddress">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <label class="form-label">Hospital City</label>
+            <input type="text" class="form-control" placeholder="Hospital City" formControlName="hospitalCity">
+        </div>
+        <div class="col">
+            <label class="form-label">Hospital Contact</label>
+            <input type="tel" class="form-control" placeholder="+91 00000 00000" formControlName="hospitalContactNo">
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-control" placeholder="name@example.com" formControlName="hospitalEmailId">
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label class="form-label">User Name</label>
+            <input type="text" class="form-control" placeholder="User Name" formControlName="userName">
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" placeholder="Password" formControlName="password">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label class="form-label">Hospital Owner Name</label>
+            <input type="tel" class="form-control" placeholder="Hospital Owner Name"
+                formControlName="hospitalOwnerName">
+            <!-- <label class="form-label">Gender</label>
+                        <select class="form-select">
+                            <option selected disabled>Choose...</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Other</option>
+                        </select> -->
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Hospital Owner Contact</label>
+            <input type="text" class="form-control" placeholder="Hospital Owner Contact"
+                formControlName="hospitalOwnerContactNo">
+        </div>
+    </div>
+
+    <!-- <div class="mb-3">
+        <label class="form-label">Department</label>
+        <select class="form-select">
+            <option>General Checkup</option>
+            <option>Cardiology</option>
+            <option>Neurology</option>
+            <option>Pediatrics</option>
+        </select>
+    </div> -->
+
+    <!-- <div class="mb-4">
+        <label class="form-label">Medical History (Optional)</label>
+        <textarea class="form-control" rows="2" placeholder="Any allergies or past illnesses..."></textarea>
+    </div> -->
+
+    <div class="d-grid mt-5">
+        <button type="button" class="btn btn-primary btn-lg" (click)="onRegistration()">Register Now</button>
+    </div>
+</form>

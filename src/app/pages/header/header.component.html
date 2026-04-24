@@ -1,0 +1,83 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="">
+      <i class="fas fa-hospital-user me-2"></i> PatientCare
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        @if(loginservice.currectUser() === null){
+            <li class="nav-item">
+          <a class="nav-link active" routerLink="/home" routerLinkActive="active">Home</a>
+        </li>
+      }
+        <li class="nav-item" *ngIf="loginservice.currectUser() !== null" >
+
+          <a class="nav-link"  [routerLink]="['/appointments']" routerLinkActive="active">Appointments</a>
+        </li>
+        <li class="nav-item" *ngIf="loginservice.currectUser() !== null" >
+          <a class="nav-link" [routerLink]="['/patients']" routerLinkActive="active">Patients</a></li>
+      </ul>
+
+      @if(loginservice.currectUser() !== null){
+        <div class="d-flex align-items-center text-white">
+              <span class="me-3 d-none d-md-inline">Welcome, {{loginservice.currectUser()?.hospitalEmailId | titlecase}}</span>
+      
+                  <button class="btn btn-outline-light btn-sm"  data-bs-toggle="modal" (click)="onLogOut()">
+                <i class="fas fa-sign-in-alt"></i> Log Out
+              </button>
+            </div>
+      }@else {
+      <div class="d-flex align-items-center text-white">      
+            <button class="btn btn-outline-light btn-sm" data-bs-toggle="modal" data-bs-target="#loginModal">
+                <i class="fas fa-sign-in-alt"></i> Login
+              </button>
+      </div>
+      }
+
+    </div>
+  </div>
+</nav>
+<router-outlet></router-outlet>
+
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="loginModalLabel">Hospital Login</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4">
+        <form [formGroup]="loginForm">
+          <div class="mb-3">
+            <label class="form-label">Email / Username</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                <input type="text" class="form-control" placeholder="Enter user name"  formControlName="userName" [class.is-invalid]="this.loginForm.get('userName')?.invalid && this.loginForm.get('userName')?.touched">
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                <input type="password" class="form-control" placeholder="Enter password" formControlName="password" [class.is-invalid]="this.loginForm.get('password')?.invalid && this.loginForm.get('password')?.touched">
+            </div>
+          </div>
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="remember">
+            <label class="form-check-label" for="remember">Remember me</label>
+          </div>
+          <button type="button" class="btn btn-primary w-100 shadow-sm" (click)="onlogin()" [disabled]="isLoading() || loginForm.invalid">  {{ isLoading() ? 'Logging in...' : 'Login' }}</button>
+          <button (click)="onReset()">Reset Test</button>
+        </form>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <small>Don't have an account? <a routerLink="/home" class="text-primary text-decoration-none">Register Here</a></small>
+      </div>
+    </div>
+  </div>
+</div>

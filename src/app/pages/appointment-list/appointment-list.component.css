@@ -1,0 +1,28 @@
+body { background-color: #f4f7f6; }
+        .card { border: none; border-radius: 10px; }
+        .card-header { border-top-left-radius: 10px; border-top-right-radius: 10px !important; }
+        .avatar-sm {
+        width: 48px;
+        height: 48px;
+        font-size: 1.25rem;
+    }
+    
+    .fs-7 { font-size: 0.8rem; }
+    
+    .small-caps {
+        font-variant: small-caps;
+        letter-spacing: 0.5px;
+    }
+
+    .transition-hover {
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+
+    .transition-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 1rem 3rem rgba(0,0,0,0.1) !important;
+    }
+    
+    /* Bootstrap subtle classes support agar na ho to */
+    .bg-primary-subtle { background-color: #e6f0ff; }
+    .bg-success-subtle { background-color: #d1e7dd; }

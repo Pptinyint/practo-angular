@@ -1,1 +1,240 @@
-<p>appointment-list works!</p>
+<div class="container py-4">
+    <div class="row mb-4 align-items-center">
+        <div class="col-md-4">
+            <h4 class="mb-0 text-primary fw-bold">Hospital Directory</h4>
+        </div>
+        <div class="col-md-8 d-flex justify-content-end gap-3">
+            <div class="input-group w-50">
+                <input type="text" class="form-control border-0 shadow-sm" placeholder="Search hospitals...">
+                <span class="input-group-text bg-white border-0 shadow-sm"><i
+                        class="fas fa-search text-muted"></i></span>
+            </div>
+            <button class="btn btn-primary shadow-sm px-4" type="button" data-bs-toggle="modal"
+                data-bs-target="#hospitalModal">
+                <i class="fas fa-plus me-2"></i>Add Appointment
+            </button>
+        </div>
+    </div>
+<pre class="text-white bg-dark p-3">{{ appointmentDataList() | json }}</pre>
+    <!-- <div class="row g-4">
+        <div class="col-xl-4 col-lg-4 col-md-6">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="badge bg-light text-primary border">ID: 101</span>
+                        <div class="dropdown">
+                            <button class="btn btn-link text-muted p-0" data-bs-toggle="dropdown"><i
+                                    class="fas fa-ellipsis-v"></i></button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                                <li><a class="dropdown-item text-primary" href="#"><i
+                                            class="fas fa-edit me-2"></i>Edit</a></li>
+                                <li><a class="dropdown-item text-danger" href="#"><i
+                                            class="fas fa-trash me-2"></i>Delete</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h5 class="card-title fw-bold mb-1 text-dark">Max Healthcare</h5>
+                    <p class="text-muted small mb-3"><i class="fas fa-envelope me-2"></i>maxhospital.com</p>
+
+                    <hr class="text-muted opacity-25">
+
+                    <div class="mb-2">
+                        <small class="text-muted d-block small-caps">LOCATION</small>
+                        <span class="fw-semibold"><i class="fas fa-map-marker-alt text-danger me-2"></i>Delhi</span>
+                    </div>
+                    <div class="mb-0">
+                        <small class="text-muted d-block small-caps">CONTACT</small>
+                        <span class="fw-semibold"><i class="fas fa-phone-alt text-success me-2"></i>9876543210</span>
+                    </div>
+                </div>
+                <div class="card-footer bg-white border-0 p-3 d-flex gap-2">
+                    <button class="btn btn-outline-primary btn-sm w-100"><i class="fas fa-edit me-1"></i> Edit</button>
+                    <button class="btn btn-outline-danger btn-sm w-100"><i class="fas fa-trash me-1"></i>
+                        Delete</button>
+                </div>
+            </div>
+        </div>
+
+    </div> -->
+    <div class="row g-4">
+@for (item of appointmentDataList(); track $index) {
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+        <div class="card h-100 shadow-lg border-0 rounded-4 transition-hover">
+            <div class="card-header bg-white border-0 p-4 pb-0 d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-light text-primary border rounded-pill px-3 py-1 fw-bold fs-7">#APPT101  </span>
+                    <span class="badge bg-success-subtle text-success border-success rounded-pill px-3 py-1 fw-bold fs-7">Confirmed</span>
+                </div>
+       
+                <div class="dropdown">
+                    <button class="btn btn-link text-muted p-0 fs-5" data-bs-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0">
+                        <li><a class="dropdown-item text-primary" href="#"><i class="fas fa-user-edit me-2"></i>Edit Patient</a></li>
+                        <li><a class="dropdown-item text-warning" href="#"><i class="fas fa-calendar-alt me-2"></i>Reschedule</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-user-slash me-2"></i>Cancel Appointment</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-body p-4 pt-3">
+                <div class="d-flex align-items-center mb-3">
+                    <div class="avatar-sm rounded-circle bg-primary-subtle text-primary d-flex justify-content-center align-items-center fw-bold me-3 text-uppercase">
+                        {{item.name.charAt(0)}}
+                    </div>
+                    <div>
+                        <h5 class="card-title fw-bold mb-0 text-dark">{{item.name}}</h5>
+                        <p class="text-muted small mb-0"><i class="fas fa-phone-alt me-2 text-success"></i>+{{item.mobileNo}}</p>
+                    </div>
+                </div>
+
+                <hr class="text-muted opacity-25">
+
+                <div class="row mb-3 g-2">
+                    <div class="col-4 border-end">
+                        <small class="text-muted d-block small-caps fs-7">AGE</small>
+                        <span class="fw-bold fs-6">{{item.age}} Yrs</span>
+                    </div>
+                    <div class="col-4 border-end text-center">
+                        <small class="text-muted d-block small-caps fs-7">GENDER</small>
+                        <span class="fw-bold fs-6 text-capitalize"><i class="fas fa-female text-danger me-1"></i>         {{item.gender}}</span>
+                    </div>
+                    <div class="col-4 ps-3">
+                        <small class="text-muted d-block small-caps fs-7">LOCATION</small>
+                        <span class="fw-bold fs-6"><i class="fas fa-map-marker-alt text-danger me-1"></i>{{item.patientCity}}</span>
+                    </div>
+                </div>
+
+                <div class="bg-light p-3 rounded-3 mb-2 border">
+                    <div class="row g-2 align-items-center">
+                        <div class="col-md-7">
+                            <small class="text-muted d-block fs-7">APPOINTMENT DATE</small>
+                            <span class="fw-bold text-primary fs-6"><i class="far fa-calendar-alt me-2"></i>{{item.appointmentDate | date:'dd-MMM-yyyy'}}</span>
+                        </div>
+                        <div class="col-md-5">
+                            <small class="text-muted d-block fs-7">TIME</small>
+                            <span class="fw-bold text-dark fs-6"><i class="far fa-clock me-2"></i>{{item.appointmentTime}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <small class="text-muted small-caps fs-7">NOTES</small>
+                    <p class="text-dark small mb-0 text-truncate">{{item.naration}}</p>
+                </div>
+
+            </div>
+        </div>
+      
+    </div>  
+}  @empty {
+    <div class="col-12">
+      <p class="text-center">No data found in the list!</p>
+    </div>
+  }
+    </div>
+    <div class="row mt-5">
+        <div class="col-12 d-flex justify-content-between align-items-center bg-white p-3 rounded shadow-sm">
+            <div class="text-muted small">Showing <b>{{ appointmentDataList().length }}</b> hospitals</div>
+            <nav>
+                <ul class="pagination pagination-sm mb-0">
+                    <li class="page-item disabled"><a class="page-link border-0" href="#">Previous</a></li>
+                    <li class="page-item active"><a class="page-link border-0 shadow-sm" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link border-0" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link border-0" href="#">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="hospitalModal" tabindex="-1" aria-labelledby="hospitalModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header bg-primary text-white py-3">
+                <h5 class="modal-title" id="hospitalModalLabel">
+                    <i class="fas fa-plus-circle me-2"></i>New Appointment Registration
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <div class="modal-body p-4">
+                <form id="hospitalForm" [formGroup]="appointmentForm">
+                    <div class="row g-3">
+                        <div class="col-12 mb-3">
+                            <label class="form-label fw-bold">Patient Full Name</label>
+                            <input type="text" class="form-control form-control-md" placeholder="Enter full name" formControlName="name">
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-7 mb-3">
+                            <label class="form-label fw-bold">City</label>
+                            <input type="text" class="form-control form-control-md" placeholder="Enter City" formControlName="city">
+                        </div>
+                        <div class="col-md-5 mb-3">
+                            <label class="form-label fw-bold">Contact No</label>
+                            <input type="tel" class="form-control form-control-md" placeholder="Phone Number" formControlName="mobileNo">
+                        </div>
+                    </div>
+
+                    <div class="row g-3 align-items-center">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-bold">Age</label>
+                            <input type="number" class="form-control form-control-md" placeholder="Age" formControlName="age">
+                        </div>                   
+                        <div class="col-md-8 mb-3">
+                            <label class="form-label fw-bold d-block">Gender</label>
+                            <div class="d-flex gap-4 mt-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gender" id="male" value="Male" formControlName="gender">
+                                    <label class="form-check-label" for="male">Male</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gender" id="female" value="Female" formControlName="gender">
+                                    <label class="form-check-label" for="female">Female</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gender" id="other" value="Other" formControlName="gender">
+                                    <label class="form-check-label" for="other">Other</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold text-primary"><i class="far fa-calendar-alt me-1"></i> Appointment Date</label>
+                            <input type="date" class="form-control form-control-md" formControlName="appointmentDate">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold text-primary"><i class="far fa-clock me-1"></i> Appointment Time</label>
+                            <input type="text" class="form-control form-control-md" formControlName="appointmentTime">
+                        </div>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <div class="form-check mt-2">
+                            <input class="form-check-input" type="checkbox" id="isFirstVisit" formControlName="isFirstVisit">
+                            <label class="form-check-label fw-bold" for="isFirstVisit">
+                                Is First Visit?
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="form-label fw-bold">Medical Narration / Notes</label>
+                        <textarea class="form-control" rows="4" placeholder="Enter any specific notes or symptoms..." formControlName="naration"></textarea>
+                    </div>
+                    
+                </form>
+            </div>
+            
+            <div class="modal-footer bg-light p-3">
+                <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary px-5 fw-bold shadow-sm" (click)="createAppointments()">Save Appointment</button>
+            </div>
+        </div>
+    </div>
+</div>
