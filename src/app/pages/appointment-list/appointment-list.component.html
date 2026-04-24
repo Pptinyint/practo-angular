@@ -15,16 +15,21 @@
             </button>
         </div>
     </div>
-<pre class="text-white bg-dark p-3">{{ appointmentDataList() | json }}</pre>
+<!-- <pre class="text-white bg-dark p-3">{{ appointmentDataList() | json }}</pre> -->
    
     <div class="row g-4">
 @for (item of appointmentDataList(); track $index) {
+
     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
         <div class="card h-100 shadow-lg border-0 rounded-4 transition-hover">
             <div class="card-header bg-white border-0 p-4 pb-0 d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center gap-2">
-                    <span class="badge bg-light text-primary border rounded-pill px-3 py-1 fw-bold fs-7">#APPT101  </span>
-                    <span class="badge bg-success-subtle text-success border-success rounded-pill px-3 py-1 fw-bold fs-7">Confirmed</span>
+                    <span class="badge bg-light text-primary border rounded-pill px-3 py-1 fw-bold fs-7">#APPT{{item.appointmentNo}} </span>
+                   @if(loggedUserData()?.userName === 'admin' || loggedUserData()?.userName === 'administrator') {
+  <span class="badge bg-success-subtle text-success border-success rounded-pill px-3 py-1 fw-bold fs-7">
+     {{item.hospitalName}}
+  </span>
+}                   
                 </div>
        
                 <div class="dropdown">

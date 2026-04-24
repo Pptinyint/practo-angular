@@ -13,93 +13,95 @@ declare var bootstrap: any;
   styleUrl: './appointment-list.component.css'
 })
 export class AppointmentListComponent implements OnInit {
-appointmentService = inject(AppointmentService);
-appointmentHosService = inject(HospitalService);
-// appointmentForm!:FormGroup;
-appointmentForm: FormGroup = new FormGroup({});
-appointmentDataList = signal<IAppointment[]>([])
-loggedUserData = signal<IHospital | null>(null)
-constructor(){
+  appointmentService = inject(AppointmentService);
+  appointmentHosService = inject(HospitalService);
+  // appointmentForm!:FormGroup;
+  appointmentForm: FormGroup = new FormGroup({});
+  appointmentDataList = signal<IAppointment[]>([])
+  loggedUserData = signal<IHospital | null>(null)
+  constructor() {
 
     const loggedData = localStorage.getItem("loginUser");
     if (loggedData) {
       this.loggedUserData.set(JSON.parse(loggedData));
     }
-}
-ngOnInit(): void {
-  this.validation();  
-  const userData = this.loggedUserData();
-  if (userData && userData.hospitalId) {
+  }
+  ngOnInit(): void {
+    this.validation();
+    const userData = this.loggedUserData();
+    if (userData && userData.hospitalId) {
       this.getAppointmentById(userData.hospitalId);
     }
-}
+  }
 
-validation() {
+  validation() {
     this.appointmentForm = new FormGroup({
       name: new FormControl(InitialAppointmentValue.name, [Validators.required, Validators.minLength(3)]),
       mobileNo: new FormControl(InitialAppointmentValue.mobileNo, [Validators.required, Validators.pattern("^[0-9]{10}$")]),
       city: new FormControl(InitialAppointmentValue.patientCity, [Validators.required]),
       age: new FormControl(InitialAppointmentValue.age, [Validators.required, Validators.min(1)]),
-      gender: new FormControl(InitialAppointmentValue.gender, [Validators.required]), 
+      gender: new FormControl(InitialAppointmentValue.gender, [Validators.required]),
       appointmentDate: new FormControl(InitialAppointmentValue.appointmentDate, [Validators.required]),
-      appointmentTime: new FormControl(InitialAppointmentValue.appointmentTime, [Validators.required]),  
+      appointmentTime: new FormControl(InitialAppointmentValue.appointmentTime, [Validators.required]),
       isFirstVisit: new FormControl(InitialAppointmentValue.isFirstVisit),
       naration: new FormControl(InitialAppointmentValue.naration),
       hospitalId: new FormControl(InitialAppointmentValue.hospitalId)
     });
   }
-  
-createAppointments(){
+
+  createAppointments() {
+    if (this.appointmentForm.invalid) {
+      alert("Please fill all required fields");
+      return;
+    }
+
     const appointmentData = { ...this.appointmentForm.value };
     const userData = this.loggedUserData();
     if (userData) {
       appointmentData.hospitalId = userData.hospitalId;
     }
-      appointmentData.patientId = 1;
-      console.log("Final Data to Backend:", appointmentData);
-      appointmentData.isDone = 0;
-      appointmentData.appointmentNo = Math.floor(Math.random() * 100);
+    appointmentData.isDone = 0;
 
-  this.appointmentHosService.createAppointment(appointmentData).subscribe({
-    next:(res:IApiResponse<IAppointment>)=>{
-      if(res.Result){
-        alert("Appointment Saved Successfully!");
-        this.onReset()
-         const modal = bootstrap.Modal.getInstance(document.getElementById('hospitalModal'));
-            modal?.hide();
+    appointmentData.appointmentNo = Math.floor(1000 + Math.random() * 9000); // 4 digit random no.
+
+    this.appointmentHosService.createAppointment(appointmentData).subscribe({
+      next: (res: IApiResponse<IAppointment>) => {
+        if (res.Result) {
+          alert("Patient & Appointment Saved Successfully!");
+          this.onReset();
+          const modal = bootstrap.Modal.getInstance(document.getElementById('hospitalModal'));
+          modal?.hide();
           if (userData && userData.hospitalId) {
-             this.getAppointmentById(userData.hospitalId);
+            this.getAppointmentById(userData.hospitalId);
           }
-      }else{
-        alert(res.Message)
+        } else {
+          alert(res.Message)
+        }
+      }, error: (err) => {
+        console.error("API Error:", err);
       }
-    },error: (err) => {
-      // Yahan error console check karein (400 hai ya 500)
-      console.error("Full Error Object:", err);
-      alert("Error: " + err.error?.Message || "Server connection failed");
-    }
-  })
-}
+    })
+  }
 
 
-getAppointmentById(id:number) {
-  const userData = this.loggedUserData();
- const userName = userData ? userData.userName : '';
-  this.appointmentHosService.getAppointmentsByHospitalId(id, userName).subscribe({
-    next: (res:IApiResponse<IAppointment[]>) => {
-      if (res.Result) {
-        this.appointmentDataList.set(res.Data); 
-        
+  getAppointmentById(id: number) {
+    const userData = this.loggedUserData();
+    const userName = userData ? userData.userName : '';
+    this.appointmentHosService.getAppointmentsByHospitalId(id, userName).subscribe({
+      next: (res: IApiResponse<IAppointment[]>) => {
+        if (res.Result) {
+          this.appointmentDataList.set(res.Data);
+
+        }
+      },
+      error: (err) => {
+        console.error("API Error:", err);
       }
-    },
-    error: (err) => {
-      console.error("API Error:", err);
-    }
-  });
-}
+    });
+  }
 
 
-onReset(){
-this.appointmentForm.reset(InitialAppointmentValue);
-} 
+  onReset() {
+    this.appointmentForm.reset(InitialAppointmentValue);
+  }
 }

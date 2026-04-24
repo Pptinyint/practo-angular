@@ -49,6 +49,8 @@ export interface IAppointment {
   isFirstVisit: boolean;
   naration: string;
   hospitalId: number;
+  hospitalName?: string;
+  appointmentNo?:number
 }
 
 export const InitialAppointmentValue: IAppointment = {
@@ -61,8 +63,9 @@ export const InitialAppointmentValue: IAppointment = {
   appointmentTime: "",
   isFirstVisit: false,
   naration: "",
-  hospitalId: 0
-  
+  hospitalId: 0,
+  hospitalName: "",
+   appointmentNo:0
 };
 // export const InitialAppointmentValue: IAppointment = {
 
